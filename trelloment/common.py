@@ -1,24 +1,36 @@
 """Trelloment common functions.
 """
 
-import pickle
 import datetime
-import os
 import errno
+import os
+import pickle
 import zlib
+
+from trelloment import core
+
+
+log = core.setup_log(__name__)
 
 
 def save_data(data, filename):
 
-    with open(filename, 'wb') as opened_file:
-        opened_file.write(zlib.compress(pickle.dumps(data)))
+    try:
+        with open(filename, 'wb') as opened_file:
+            opened_file.write(zlib.compress(pickle.dumps(data)))
+    except OSError as error:
+        log.exception(error)
+        raise
 
 
 def load_data(filename):
 
-    with open(filename, 'rb') as opened_file:
-
-        return pickle.loads(zlib.decompress(opened_file.read()))
+    try:
+        with open(filename, 'rb') as opened_file:
+            return pickle.loads(zlib.decompress(opened_file.read()))
+    except OSError as error:
+        log.exception(error)
+        raise
 
 
 def get_today_string():

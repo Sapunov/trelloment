@@ -2,13 +2,18 @@
 """
 
 from trelloment import fetch
+from trelloment import core
+
+
+log = core.setup_log(__name__, log_file='save_current_state')
 
 
 def main():
 
-    boards_processed = fetch.save_current_state()
-
-    print('{0} boards was processed'.format(boards_processed))
+    try:
+        fetch.save_current_state()
+    except Exception as error:
+        log.exception(error)
 
 
 if __name__ == '__main__':

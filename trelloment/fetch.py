@@ -5,8 +5,12 @@ import os
 
 from trello import TrelloClient
 
-from trelloment import settings
 from trelloment import common
+from trelloment import core
+from trelloment import settings
+
+
+log = core.setup_log(__name__)
 
 
 def get_card_data(card):
@@ -74,9 +78,13 @@ def get_board_data(board_id):
 
 def save_current_state():
 
+    log.debug('Start saving current boards state')
+
     boards_processed = 0
 
     for board_id in settings.BOARDS_TO_FOLLOW:
+        log.debug('Start processing board<%s>', board_id)
+
         board_data = get_board_data(board_id)
 
         directory = os.path.join(settings.HISTORY_PATH, board_id)
@@ -84,6 +92,10 @@ def save_current_state():
         filepath = os.path.join(directory, common.get_today_string())
         common.save_data(board_data, filepath)
 
+        log.debug('Board<%s> data saved to %s', board_id, filepath)
+
         boards_processed += 1
+
+    log.debug('%s was processed')
 
     return boards_processed

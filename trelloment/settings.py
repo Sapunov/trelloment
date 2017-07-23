@@ -8,6 +8,7 @@ import json
 NAME = 'trelloment'
 BASE_DIR = os.path.join(os.path.sep, 'opt', NAME)
 CONFIGS_DIR = os.path.join(os.path.sep, 'etc', NAME)
+LOGS_DIR = os.path.join(os.path.sep, 'var', 'log', NAME)
 
 CREDENTIALS_FILENAME = os.path.join(CONFIGS_DIR, 'credentials.json')
 CREDENTIALS = {}
