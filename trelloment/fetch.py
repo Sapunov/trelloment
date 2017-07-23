@@ -96,6 +96,6 @@ def save_current_state():
 
         boards_processed += 1
 
-    log.debug('%s was processed')
+    log.debug('%s was processed', boards_processed)
 
     return boards_processed
