@@ -16,7 +16,10 @@ def get_card_data(card):
     data = {
         'id': card.id,
         'name': card.name,
-        'todo_list': []
+        'todo_list': [],
+        'todo': 0,
+        'done': 0,
+        'is_completed': False
     }
 
     if checklists:
@@ -30,21 +33,16 @@ def get_card_data(card):
             )
 
         data['todo'] = len(data['todo_list'])
-        data['done'] = sum(
-            1 for todo in data['todo_list'] if todo['is_completed']
-        )
+        data['done'] = sum(1 for todo in data['todo_list'] if todo['is_completed'])
+
+        data['is_completed'] = True if data['todo'] == data['done'] else False
     else:
         # When card have no checklist than card have only
         # one task - to complete itself i.e. only one todo.
-        # In this case only list where card locats matter(`done` or another)
-        data['todo'] = 1
-
+        #
+        # In this case only list where card locates matter(`done` or another)
         if common.lower_eq(card.get_list().name, settings.DONE_LIST):
-            data['done'] = 1
-        else:
-            data['done'] = 0
-
-    data['is_completed'] = True if data['todo'] == data['done'] else False
+            data['is_completed'] = True
 
     return data
 
@@ -59,18 +57,17 @@ def get_board_data(board_id):
     data = {
         'id': board_id,
         'name': board.name,
-        'cards': []
+        'cards': [],
+        'todo': 0,
+        'done': 0
     }
 
     for card in cards:
         data['cards'].append(get_card_data(card))
 
     if cards:
-        data['todo'] = sum([card['todo'] for card in data['cards']])
-        data['done'] = sum([card['done'] for card in data['cards']])
-    else:
-        data['todo'] = 0
-        data['done'] = 0
+        data['todo'] = sum(1 for card in data['cards'] if not card['is_completed'])
+        data['done'] = sum(1 for card in data['cards'] if card['is_completed'])
 
     return data
 
