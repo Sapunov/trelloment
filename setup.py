@@ -8,7 +8,7 @@ if __name__ == '__main__':
     with open('README.md') as readme:
         setup(
             name='trelloment',
-            version='0.1',
+            version='0.2',
 
             description=readme.readline().strip(),
             long_description=readme.read().strip() or None,
@@ -28,6 +28,6 @@ if __name__ == '__main__':
             ],
             platforms=['unix', 'linux', 'osx', 'windows'],
 
-            install_requires=['py-trello'],
+            install_requires=['requests', 'py-trello'],
             packages=find_packages(),
         )

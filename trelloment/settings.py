@@ -29,3 +29,6 @@ BOARDS_TO_FOLLOW = []
 if os.path.exists(BOARDS_FILENAME):
     with open(BOARDS_FILENAME) as boards_file:
         BOARDS_TO_FOLLOW = [bid.strip() for bid in boards_file.read().split()]
+
+
+DONE_LIST = 'done'

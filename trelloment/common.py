@@ -5,7 +5,6 @@ import pickle
 import datetime
 import os
 import errno
-import string
 import zlib
 
 
@@ -26,7 +25,7 @@ def get_today_string():
 
     today = datetime.datetime.today()
 
-    return today.strftime('%Y-%M-%d')
+    return today.strftime('%Y-%m-%d')
 
 
 def ensure_directory(path):
@@ -41,3 +40,8 @@ def ensure_directory(path):
 def compress_json(data):
 
     return zlib.compress(bytes(data, 'utf-8'))
+
+
+def lower_eq(lhs, rhs):
+
+    return lhs.lower() == rhs.lower()

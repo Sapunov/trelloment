@@ -11,30 +11,38 @@ from trelloment import common
 
 def get_card_data(card):
 
-    data = {}
+    checklists = card.fetch_checklists()
 
-    data['name'] = card.name
-    data['todo_list'] = []
+    data = {
+        'id': card.id,
+        'name': card.name,
+        'todo_list': []
+    }
 
-    card.fetch_checklists()
-
-    if card.checklists:
-        for todo in card.checklists[0].items:
+    if checklists:
+        for todo in checklists[0].items:
             data['todo_list'].append(
                 {
+                    'id': todo['id'],
                     'name': todo['name'],
                     'is_completed': todo['checked']
                 }
             )
 
         data['todo'] = len(data['todo_list'])
-        data['done'] = sum(1 for todo in data['todo_list'] if todo['is_completed'])
+        data['done'] = sum(
+            1 for todo in data['todo_list'] if todo['is_completed']
+        )
     else:
-        # When card have no checklist than card have only one task - to complete itself
-        # i.e. only one todo.
+        # When card have no checklist than card have only
+        # one task - to complete itself i.e. only one todo.
         # In this case only list where card locats matter(`done` or another)
         data['todo'] = 1
-        data['done'] = 1 if card.get_list().name.lower() == 'done' else 0
+
+        if common.lower_eq(card.get_list().name, settings.DONE_LIST):
+            data['done'] = 1
+        else:
+            data['done'] = 0
 
     data['is_completed'] = True if data['todo'] == data['done'] else False
 
@@ -45,12 +53,14 @@ def get_board_data(board_id):
 
     client = TrelloClient(**settings.CREDENTIALS)
 
-    data = {}
     board = client.get_board(board_id)
     cards = board.get_cards()
 
-    data['name'] = board.name
-    data['cards'] = []
+    data = {
+        'id': board_id,
+        'name': board.name,
+        'cards': []
+    }
 
     for card in cards:
         data['cards'].append(get_card_data(card))
