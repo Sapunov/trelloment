@@ -8,6 +8,7 @@ import pickle
 import zlib
 
 from trelloment import core
+from trelloment import settings
 
 
 log = core.setup_log(__name__)
@@ -25,12 +26,8 @@ def save_data(data, filename):
 
 def load_data(filename):
 
-    try:
-        with open(filename, 'rb') as opened_file:
-            return pickle.loads(zlib.decompress(opened_file.read()))
-    except OSError as error:
-        log.exception(error)
-        raise
+    with open(filename, 'rb') as opened_file:
+        return pickle.loads(zlib.decompress(opened_file.read()))
 
 
 def get_today_string():
@@ -57,3 +54,14 @@ def compress_json(data):
 def lower_eq(lhs, rhs):
 
     return lhs.lower() == rhs.lower()
+
+
+def percent(numerator, denominator):
+
+    return round(numerator / denominator * 100, 4)
+
+def version2dt(version_str):
+
+    year, month, day = map(int, version_str.split('-'))
+
+    return datetime.datetime(year, month, day)
