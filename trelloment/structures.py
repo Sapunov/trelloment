@@ -76,7 +76,7 @@ class Base:
         except (FileNotFoundError, exceptions.NoVersionAvailible):
             pass
 
-    def progress(self):
+    def progress(self, dtformat=None):
 
         points = []
 
@@ -84,7 +84,8 @@ class Base:
             self.load(version)
 
             points.append((
-                common.version2dt(version),
+                common.dt2fmt(common.version2dt(version), dtformat) \
+                    if dtformat else common.version2dt(version),
                 self.todo,
                 self.done,
                 common.percent(self.done, self.todo)
@@ -102,7 +103,7 @@ class Base:
 
         return round((r - l) * 100, 4)
 
-    def diff(self):
+    def diff(self, dtformat=None):
 
         points = []
         versions = self.versions
@@ -116,7 +117,8 @@ class Base:
 
         for i in range(1, len(versions)):
             points.append((
-                common.version2dt(versions[i]),
+                common.dt2fmt(common.version2dt(versions[i]), dtformat) \
+                    if dtformat else common.version2dt(versions[i]),
                 self._diff(todos, dones, i)
             ))
 
