@@ -10,12 +10,6 @@ import methods
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-
-    return render_template('index.html')
-
-
 @app.route('/api/boards')
 @app.route('/api/boards/<string:board_id>')
 @app.route('/api/boards/<string:board_id>/<string:path>')
@@ -44,6 +38,13 @@ def get_card(card_id, path=None):
         return methods.get_card_diff(card_id)
     else:
         return methods.get_card_data(card_id)
+
+
+@app.route('/')
+@app.route('/<path:path>')
+def index(path=None):
+
+    return render_template('index.html')
 
 
 def main():

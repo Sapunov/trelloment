@@ -1,0 +1,27 @@
+<div class="board-box">
+    <h2>{{ board.name }}<span class="percent"> - {{ board.percent }}%</span></h2>
+
+    <div class="barchart">
+         <canvas id="{{ board.id }}" class="chart chart-bar"
+            chart-data="chart.data"
+            chart-labels="chart.labels"
+            chart-series="chart.series">
+        </canvas>
+    </div>
+</div>
+
+<div class="board-cards">
+    <h3>Карточки</h3>
+    <div ng-repeat="card in cards_todo" class="board-box">
+        <a href="/cards/{{ card.id }}"><b>{{ card.name }}</b></a>
+        <span> - {{ card.percent }}%</span>
+    </div>
+
+    <div ng-show="cards_done.length">
+        <h3 style="margin-top: 30px">Выполненные</h3>
+        <div ng-repeat="card in cards_done" class="board-box">
+            <a href="/cards/{{ card.id }}"><b>{{ card.name }}</b></a>
+            <span> - {{ card.percent }}%</span>
+        </div>
+    </div>
+</div>

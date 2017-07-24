@@ -1,0 +1,11 @@
+<div class="board-box">
+    <h2>{{ card.name }}<span class="percent"> - {{ card.percent }}%</span></h2>
+
+    <div class="barchart">
+         <canvas id="{{ card.id }}" class="chart chart-bar"
+            chart-data="chart.data"
+            chart-labels="chart.labels"
+            chart-series="chart.series">
+        </canvas>
+    </div>
+</div>

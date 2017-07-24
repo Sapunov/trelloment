@@ -14,16 +14,15 @@
 <base href="/">
 </head>
 <body ng-controller="baseCtrl">
+<header class="header">
+    <h1 class="logo">TRELLOMENT</h1>
+</header>
 <div class="wrapper">
 
-	<header class="header">
-		<h1 class="logo">TRELLOMENT</h1>
-	</header><!-- .header-->
+    <main class="content">
+        <div ng-view>Загрузка...</div>
+    </main>
 
-	<main class="content">
-		<div ng-view>Загрузка...</div>
-	</main><!-- .content -->
-
-</div><!-- .wrapper -->
+</div>
 </body>
 </html>

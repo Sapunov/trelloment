@@ -1,12 +1,5 @@
+<h3>Доски</h3>
 <div ng-repeat="board in boards" class="board-box">
     <a href="/boards/{{ board.id }}"><b>{{ board.name }}</b></a>
     <span> - {{ board.percent }}%</span>
-
-    <div class="barchart">
-         <canvas id="{{ board.id }}" class="chart chart-bar"
-            chart-data="charts[board.id].data"
-            chart-labels="charts[board.id].labels"
-            chart-series="charts[board.id].series">
-        </canvas>
-    </div>
 </div>
