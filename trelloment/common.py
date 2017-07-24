@@ -7,7 +7,6 @@ import os
 import pickle
 import zlib
 import functools
-import math
 
 from trelloment import core
 from trelloment import settings
@@ -77,6 +76,16 @@ def dt2fmt(dt, format):
     return dt.strftime(format)
 
 
+def gcd_(a, b):
+    '''Greatest common divisor for 2 digits.
+    '''
+
+    while b:
+        a, b = b, a % b
+
+    return a
+
+
 def gcd(*items):
     '''Greatest common divisor for the list of digits.
     '''
@@ -84,7 +93,7 @@ def gcd(*items):
     if len(items) == 1 and isinstance(items[0], (list, tuple)):
         items = items[0]
 
-    return functools.reduce(math.gcd, items)
+    return functools.reduce(gcd_, items)
 
 
 def lcm(*items):
