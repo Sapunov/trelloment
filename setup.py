@@ -8,7 +8,7 @@ if __name__ == '__main__':
     with open('README.md') as readme:
         setup(
             name='trelloment',
-            version='1.0',
+            version='1.1',
 
             description=readme.readline().strip(),
             long_description=readme.read().strip() or None,

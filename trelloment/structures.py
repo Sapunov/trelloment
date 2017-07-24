@@ -86,7 +86,7 @@ class Base:
             points.append((
                 common.dt2fmt(common.version2dt(version), dtformat) \
                     if dtformat else common.version2dt(version),
-                common.percent(self.done, self.todo)
+                self.percent
             ))
 
         # The last item in self.versions is the lastest version
@@ -94,30 +94,21 @@ class Base:
 
         return points
 
-    def _diff(self, todos, dones, i):
-
-        l = dones[i - 1] / todos[i - 1]
-        r = dones[i] / todos[i]
-
-        return round((r - l) * 100, 4)
-
     def diff(self, dtformat=None):
 
         points = []
         versions = self.versions
-        todos = []
-        dones = []
+        percents = []
 
         for version in versions:
             self.load(version)
-            todos.append(self.todo)
-            dones.append(self.done)
+            percents.append(self.percent)
 
         for i in range(1, len(versions)):
             points.append((
                 common.dt2fmt(common.version2dt(versions[i]), dtformat) \
                     if dtformat else common.version2dt(versions[i]),
-                self._diff(todos, dones, i)
+                round(percents[i] - percents[i - 1], 4)
             ))
 
         return points
@@ -190,6 +181,11 @@ class Card(Base):
 
         return sum(1 for task in self.tasks if task.is_completed)
 
+    @property
+    def percent(self):
+
+        return common.percent(self.done, self.todo)
+
     def add_task(self, task_id, task_name, is_task_completed):
 
         self.tasks.append(Task(task_id, task_name, is_task_completed))
@@ -246,6 +242,17 @@ class Board(Base):
         '''
 
         return sum(card.done for card in self.cards)
+
+    @property
+    def percent(self):
+
+        todos = [card.todo for card in self.cards]
+        dones = [card.done for card in self.cards]
+        lcm = common.lcm(todos)
+
+        numerator = common.multiple_v(dones, common.safe_divide_dv(lcm, todos))
+
+        return common.percent(sum(numerator), len(todos) * lcm)
 
     def add_card(self, card_obj):
 

@@ -6,6 +6,8 @@ import errno
 import os
 import pickle
 import zlib
+import functools
+import math
 
 from trelloment import core
 from trelloment import settings
@@ -73,3 +75,53 @@ def version2dt(version_str):
 def dt2fmt(dt, format):
 
     return dt.strftime(format)
+
+
+def gcd(*items):
+    '''Greatest common divisor for the list of digits.
+    '''
+
+    if len(items) == 1 and isinstance(items[0], (list, tuple)):
+        items = items[0]
+
+    return functools.reduce(math.gcd, items)
+
+
+def lcm(*items):
+    '''Least common multiple for the list of digits.
+    '''
+
+    if len(items) == 1 and isinstance(items[0], (list, tuple)):
+        items = items[0]
+
+    # delete all zeros
+    items = [i for i in items if i != 0]
+
+    def compute(lhs, rhs):
+
+        try:
+            return (lhs * rhs) // gcd(lhs, rhs)
+        except ZeroDivisionError:
+            return 0
+
+    return functools.reduce(compute, items, 1)
+
+
+def safe_divide_dv(digit, vector):
+
+    vector = vector.copy()
+
+    for i in range(len(vector)):
+        try:
+            vector[i] = int(digit / vector[i])
+        except ZeroDivisionError:
+            vector[i] = 0
+
+    return vector
+
+
+def multiple_v(lhs, rhs):
+
+    assert len(lhs) == len(rhs), 'Length must be equal'
+
+    return [lhs[i] * rhs[i] for i in range(len(lhs))]

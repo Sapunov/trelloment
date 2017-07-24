@@ -19,13 +19,12 @@ def get_boards_list():
             'todo': board.todo,
             'done': board.done,
             'is_completed': board.is_completed,
+            'percent': board.percent
         })
 
         # todo and done is a methods that count len of the specific lists
-        if board.is_completed:
+        if board.is_completed and ans[-1]['percent'] != 100:
             ans[-1]['percent'] = 100
-        else:
-            ans[-1]['percent'] = common.percent(ans[-1]['done'], ans[-1]['todo'])
 
         ans.sort(key=lambda it: it['percent'], reverse=True)
 
@@ -40,13 +39,12 @@ def get_board_data(board_id):
         'name': board.name,
         'todo': board.todo,
         'done': board.done,
-        'is_completed': board.is_completed
+        'is_completed': board.is_completed,
+        'percent': board.percent
     }
 
-    if board.is_completed:
+    if board.is_completed and ans['percent'] != 100:
         ans['percent'] = 100
-    else:
-        ans['percent'] = common.percent(ans['done'], ans['todo'])
 
     return jsonify(ans)
 
@@ -62,13 +60,12 @@ def get_board_cards(board_id):
             'name': card.name,
             'todo': card.todo,
             'done': card.done,
-            'is_completed': card.is_completed
+            'is_completed': card.is_completed,
+            'percent': card.percent
         })
 
-        if card.is_completed:
+        if card.is_completed and ans[-1]['percent'] != 100:
             ans[-1]['percent'] = 100
-        else:
-            ans[-1]['percent'] = common.percent(ans[-1]['done'], ans[-1]['todo'])
 
         ans.sort(key=lambda it: it['percent'], reverse=True)
 
@@ -98,13 +95,12 @@ def get_card_data(card_id):
         'name': card.name,
         'todo': card.todo,
         'done': card.done,
-        'is_completed': card.is_completed
+        'is_completed': card.is_completed,
+        'percent': card.percent
     }
 
-    if card.is_completed:
+    if card.is_completed and ans['percent'] != 100:
         ans['percent'] = 100
-    else:
-        ans['percent'] = common.percent(ans['done'], ans['todo'])
 
     return jsonify(ans)
 
