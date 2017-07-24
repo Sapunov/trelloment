@@ -86,8 +86,6 @@ class Base:
             points.append((
                 common.dt2fmt(common.version2dt(version), dtformat) \
                     if dtformat else common.version2dt(version),
-                self.todo,
-                self.done,
                 common.percent(self.done, self.todo)
             ))
 
