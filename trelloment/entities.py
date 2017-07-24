@@ -25,3 +25,12 @@ def get_boards():
 def get_cards():
 
     return [structures.Card(card_id) for card_id in list_cards_ids()]
+
+
+def get_board_by_id(board_id):
+
+    return structures.Board(board_id)
+
+def get_card_by_id(card_id):
+
+    return structures.Card(card_id)

@@ -58,6 +58,9 @@ def lower_eq(lhs, rhs):
 
 def percent(numerator, denominator):
 
+    if denominator == 0:
+        return 0.0
+
     return round(numerator / denominator * 100, 4)
 
 def version2dt(version_str):
@@ -65,3 +68,8 @@ def version2dt(version_str):
     year, month, day = map(int, version_str.split('-'))
 
     return datetime.datetime(year, month, day)
+
+
+def dt2fmt(dt, format):
+
+    return dt.strftime(format)
