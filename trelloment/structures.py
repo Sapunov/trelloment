@@ -85,8 +85,6 @@ class Base:
 
             points.append((
                 common.version2dt(version),
-                self.todo,
-                self.done,
                 common.percent(self.done, self.todo)
             ))
 
