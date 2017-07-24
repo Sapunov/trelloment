@@ -451,6 +451,7 @@ body {
 /* Middle
 -----------------------------------------------------------------------------*/
 .content {
+  padding-bottom: 50px;
 }
 
 .logo {
@@ -467,4 +468,9 @@ body {
 
 .board-box a {
   text-decoration: none;
+}
+
+.barchart {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

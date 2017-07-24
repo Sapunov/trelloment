@@ -6,6 +6,7 @@ function BaseCtrl($scope) {
 
 function BoardsCtrl($scope, $http) {
     $scope.boards = [];
+    $scope.charts = {};
 
     function loadBoards() {
         $http.get(api_uri + '/boards').then(function(response) {
@@ -14,23 +15,24 @@ function BoardsCtrl($scope, $http) {
         });
     }
 
-    function extractAxis(data) {
-        var out = {labels: [], series: []};
+    function extractAxis(data, chart_type) {
+        var out = { labels: [], data: [], series: [chart_type] };
 
         for ( var i in data ) {
             out.labels.push(data[i][0]);
-            out.series.push(data[i][1]);
+            out.data.push(data[i][1]);
         }
+
+        return out;
     }
 
     function loadCharts(chart_type) {
-
         chart_type = chart_type || 'progress';
 
         for ( var i in $scope.boards ) {
             $http.get(api_uri + '/boards/' + $scope.boards[i].id + '/' + chart_type)
             .then(function(response) {
-                $scope.boards[i][chart_type + '_data'] = response.data;
+                $scope.charts[$scope.boards[i].id] = extractAxis(response.data, chart_type);
             });
         }
     }
