@@ -238,14 +238,14 @@ class Board(Base):
         '''How many tasks to do.
         '''
 
-        return len(self.cards)
+        return sum(card.todo for card in self.cards)
 
     @property
     def done(self):
         '''How many tasks already done.
         '''
 
-        return sum(1 for card in self.cards if card.is_completed)
+        return sum(card.done for card in self.cards)
 
     def add_card(self, card_obj):
 

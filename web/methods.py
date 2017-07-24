@@ -22,7 +22,12 @@ def get_boards_list():
         })
 
         # todo and done is a methods that count len of the specific lists
-        ans[-1]['percent'] = common.percent(ans[-1]['done'], ans[-1]['todo'])
+        if board.is_completed:
+            ans[-1]['percent'] = 100
+        else:
+            ans[-1]['percent'] = common.percent(ans[-1]['done'], ans[-1]['todo'])
+
+        ans.sort(key=lambda it: it['percent'], reverse=True)
 
     return jsonify(ans)
 
@@ -38,7 +43,10 @@ def get_board_data(board_id):
         'is_completed': board.is_completed
     }
 
-    ans['percent'] = common.percent(ans['done'], ans['todo'])
+    if board.is_completed:
+        ans['percent'] = 100
+    else:
+        ans['percent'] = common.percent(ans['done'], ans['todo'])
 
     return jsonify(ans)
 
@@ -57,7 +65,12 @@ def get_board_cards(board_id):
             'is_completed': card.is_completed
         })
 
-        ans[-1]['percent'] = common.percent(ans[-1]['done'], ans[-1]['todo'])
+        if card.is_completed:
+            ans[-1]['percent'] = 100
+        else:
+            ans[-1]['percent'] = common.percent(ans[-1]['done'], ans[-1]['todo'])
+
+        ans.sort(key=lambda it: it['percent'], reverse=True)
 
     return jsonify(ans)
 
@@ -85,10 +98,13 @@ def get_card_data(card_id):
         'name': card.name,
         'todo': card.todo,
         'done': card.done,
-        'is_completed':card.is_completed
+        'is_completed': card.is_completed
     }
 
-    ans['percent'] = common.percent(ans['done'], ans['todo'])
+    if card.is_completed:
+        ans['percent'] = 100
+    else:
+        ans['percent'] = common.percent(ans['done'], ans['todo'])
 
     return jsonify(ans)
 
