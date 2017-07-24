@@ -1,6 +1,15 @@
 <div class="board-box">
     <h2>{{ board.name }}<span class="percent"> - {{ board.percent }}%</span></h2>
 
+    <div class="chart-control">
+        <span
+            ng-class="(chart_type == 'progress') ? 'active' : ''"
+            ng-click="setChart('progress')">Прогресс</span>
+        <span
+            ng-class="(chart_type == 'diff') ? 'active' : ''"
+            ng-click="setChart('diff')">Изменение</span>
+    </div>
+
     <div class="barchart">
          <canvas id="{{ board.id }}" class="chart chart-bar"
             chart-data="chart.data"

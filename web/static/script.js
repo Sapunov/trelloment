@@ -37,6 +37,13 @@ function BoardCtrl($scope, $http, $routeParams) {
     $scope.chart = {};
     $scope.chart_type = 'progress';
 
+    $scope.setChart = function(chart_type) {
+        if ( $scope.chart_type !== chart_type ) {
+            $scope.chart_type = chart_type;
+            loadChart();
+        }
+    }
+
     function loadBoardCards() {
         $http.get(api_uri + '/boards/' + boardId + '/cards').then(function(response) {
             for ( var i in response.data ) {
@@ -74,6 +81,13 @@ function CardCtrl($scope, $http, $routeParams) {
 
     $scope.chart = {};
     $scope.chart_type = 'progress';
+
+    $scope.setChart = function(chart_type) {
+        if ( $scope.chart_type !== chart_type ) {
+            $scope.chart_type = chart_type;
+            loadChart();
+        }
+    }
 
     function loadCard() {
         $http.get(api_uri + '/cards/' + cardId).then(function(response) {

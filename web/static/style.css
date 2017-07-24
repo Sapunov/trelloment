@@ -435,7 +435,7 @@ body {
 	width: 100%;
 }
 .wrapper {
-	width: 800px;
+	width: 700px;
 	margin: 0 auto;
 }
 
@@ -487,4 +487,20 @@ body {
   background-color: #ccc;
   margin-top: 2px;
   margin-bottom: 2px;
+}
+
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.chart-control {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.chart-control span {
+  padding-left: 5px;
+  padding-right: 2px;
+  cursor: pointer;
 }
