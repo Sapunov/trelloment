@@ -105,6 +105,21 @@ def get_card_data(card_id):
     return jsonify(ans)
 
 
+def get_card_tasks(card_id):
+
+    card = entities.get_card_by_id(card_id)
+    ans = []
+
+    for task in card.tasks:
+        ans.append({
+            'id': task.id,
+            'name': task.name,
+            'is_completed': task.is_completed
+        })
+
+    return jsonify(ans)
+
+
 def get_card_progress(card_id):
 
     card = entities.get_card_by_id(card_id)

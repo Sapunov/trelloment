@@ -79,6 +79,9 @@ function CardCtrl($scope, $http, $routeParams) {
 
     $scope.card = {};
 
+    $scope.tasks_done = [];
+    $scope.tasks_todo = [];
+
     $scope.chart = {};
     $scope.chart_type = 'progress';
 
@@ -87,6 +90,18 @@ function CardCtrl($scope, $http, $routeParams) {
             $scope.chart_type = chart_type;
             loadChart();
         }
+    }
+
+    function loadCardTasks() {
+        $http.get(api_uri + '/cards/' + cardId + '/tasks').then(function(response) {
+            for ( var i in response.data ) {
+                if ( response.data[i].is_completed ) {
+                    $scope.tasks_done.push(response.data[i]);
+                } else {
+                    $scope.tasks_todo.push(response.data[i]);
+                }
+            }
+        });
     }
 
     function loadCard() {
@@ -104,6 +119,7 @@ function CardCtrl($scope, $http, $routeParams) {
     }
 
     loadCard();
+    loadCardTasks();
 }
 
 (function(){

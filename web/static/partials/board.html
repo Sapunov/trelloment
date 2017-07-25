@@ -19,18 +19,22 @@
     </div>
 </div>
 
-<div class="board-cards">
-    <h3>Карточки</h3>
-    <div ng-repeat="card in cards_todo" class="board-box">
-        <a href="/cards/{{ card.id }}"><b>{{ card.name }}</b></a>
-        <span> - {{ card.percent }}%</span>
-    </div>
-
-    <div ng-show="cards_done.length">
-        <h3 style="margin-top: 30px">Выполненные</h3>
-        <div ng-repeat="card in cards_done" class="board-box">
+<div ng-show="cards_todo.length" class="board-cards">
+    <h3>Карточки &#8211; {{ cards_todo.length }}</h3>
+    <ul>
+        <li ng-repeat="card in cards_todo" class="board-box">
             <a href="/cards/{{ card.id }}"><b>{{ card.name }}</b></a>
             <span> - {{ card.percent }}%</span>
-        </div>
+        </li>
+    </ul>
+
+    <div ng-show="cards_done.length">
+        <h3 style="margin-top: 30px">Выполненные &#8211; {{ cards_todo.length }}</h3>
+        <ul>
+            <li ng-repeat="card in cards_done" class="board-box">
+                <a href="/cards/{{ card.id }}"><b>{{ card.name }}</b></a>
+                <span> - {{ card.percent }}%</span>
+            </li>
+        </ul>
     </div>
 </div>

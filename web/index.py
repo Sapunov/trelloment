@@ -32,7 +32,9 @@ def get_board_path(board_id=None, path=None):
 @app.route('/api/cards/<string:card_id>/<string:path>')
 def get_card(card_id, path=None):
 
-    if path == 'progress':
+    if path == 'tasks':
+        return methods.get_card_tasks(card_id)
+    elif path == 'progress':
         return methods.get_card_progress(card_id)
     elif path == 'diff':
         return methods.get_card_diff(card_id)
