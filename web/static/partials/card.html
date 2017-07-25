@@ -19,14 +19,15 @@
     </div>
 </div>
 
-<div ng-show="tasks_todo.length" class="board-cards">
-    <h3>Задания &#8211; {{ tasks_todo.length }}</h3>
-    <ul>
-        <li ng-repeat="task in tasks_todo" class="board-box">
-            <b>{{ task.name }}</b>
-        </li>
-    </ul>
-
+<div class="board-cards">
+    <div ng-show="tasks_todo.length">
+        <h3>Задания &#8211; {{ tasks_todo.length }}</h3>
+        <ul>
+            <li ng-repeat="task in tasks_todo" class="board-box">
+                <b>{{ task.name }}</b>
+            </li>
+        </ul>
+    </div>
     <div ng-show="tasks_done.length">
         <h3 style="margin-top: 30px">Выполненные &#8211; {{ tasks_done.length }}</h3>
         <div class="task-done">
