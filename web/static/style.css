@@ -4,23 +4,19 @@ body {
 	font: 12px/18px Arial, sans-serif;
 	width: 100%;
 }
+
 .wrapper {
 	width: 700px;
 	margin: 0 auto;
 }
 
-
-/* Header
------------------------------------------------------------------------------*/
 .header {
   height: 50px;
   width: 100%;
-	background: #FFE680;
+  background: #ffd255;
+  border-bottom: 1px solid #ffcd44;
 }
 
-
-/* Middle
------------------------------------------------------------------------------*/
 .content {
   padding-bottom: 50px;
 }
@@ -31,8 +27,11 @@ body {
   padding: 0;
   line-height: 50px;
   text-align: center;
+  padding-left: 50px;
+  font-size: 0.9em;
   color: #000;
   text-decoration: none;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
 }
 
 .logo h1 {
